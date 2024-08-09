@@ -1,18 +1,79 @@
+h2 {
+    font-size: 2.25em;
+    color: rgb(255, 255, 255);
+}
+
+a {
+    font-size: .8em;
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-top: 30%;
+    color: rgba(255, 255, 255, 0.808);
+}
+
 .login-container {
     background-image: url('../../../../public/loginbg.jpg');
     background-repeat: none;
     background-size: cover;
-    padding: 1em;
     width: 100%;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
 }
 
 .login-box {
-    background: rgba(255, 255, 255, 0.671);
-    padding: 1em;
+    background: rgba(229, 232, 255, 0.161);
+    backdrop-filter: blur(3px);
+    padding: 4em 4em 1.5em 4em;
     border-radius: 1em;
+}
+
+/* Container for floating label */
+.floating-label {
+    position: relative;
+    margin: 20px 0;
+}
+
+/* Style for the input field */
+.floating-label input {
+    width: 100%;
+    padding: 10px 10px 10px 5px;
+    font-size: 16px;
+    border: 2px solid #ffffff81;
+    border-radius: 8px;
+    outline: none;
+    background: none;
+    color: white;
+}
+
+/* Style for the label */
+.floating-label label {
+    position: absolute;
+    top: 11px;
+    left: 14px;
+    font-size: 1em;
+    color: rgb(255, 255, 255);
+    pointer-events: none;
+    transition: 0.1s ease all;
+    font-weight: 400;
+    // font-style: italic;
+}
+
+.floating-label input:focus {
+    border-color: white;
+}
+
+/* Move the label above when input is focused or has text */
+.floating-label input:focus ~ label,
+.floating-label input:valid ~ label{
+    top: -6px;
+    left: 5px;
+    font-size: 12px;
+    padding: 0 5px 0 3px;
+    background-color: #afd8f0;
+    border-radius: 2.5px;
 }
 

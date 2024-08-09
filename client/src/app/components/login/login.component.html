@@ -1,16 +1,17 @@
 <div class="login-container">
     <div class="login-box">
         <h2>Login</h2>
-        <form action="" (submit)="login()">
-            <p-floatLabel>
+        <form [formGroup]="form" (submit)="login(form)">
+            <div class="floating-label">
+                <input type="text" id="email" formControlName="email" required>
                 <label for="email">Email</label>
-                <input type="text" pInputText id="email">
-            </p-floatLabel>
-            <p-floatLabel>
+            </div>
+            <div class="floating-label">
+                <input type="password" id="password" formControlName="password" required>
                 <label for="password">Password</label>
-                <input type="text" pInputText id="password">
-            </p-floatLabel>
-            <button pButton type="submit" label="Submit"></button>
+            </div>
+            <button pButton type="submit">Login</button>
         </form>
+        <a href="/register">Register</a>
     </div>
 </div>
