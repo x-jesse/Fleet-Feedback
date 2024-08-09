@@ -1,19 +1,18 @@
 const express = require('express');
-// const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
-// const authRoutes = require('./routes/auth');
-// const routes = require('./routes/index');
-const User = require('./models/user.model.js')
+const cors = require('cors');
+const authRoutes = require('./routes/auth.js');
 
 dotenv.config();
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 const port = process.env.PORT || 3000;
 
-mongoose.connect(uri)
+mongoose.connect(process.env.MONGO_URI)
 .then(() => console.log('Connected.'))
 .catch(err => console.log(error));
 
@@ -21,7 +20,7 @@ app.get('/', (req, res) => {
     res.send('OWO');
 })
 
-
+app.use('/api/auth', authRoutes);
 
 app.post('/api/users', async (req, res) => {
     try {
