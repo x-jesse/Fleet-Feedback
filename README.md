@@ -5,3 +5,8 @@
 - existing solutions don't have a large focus on AI
 
 We want to focus on establishing a path of improvement by providing dynamic and personalized feedback to drivers.
+
+
+## Scoring
+
+CSA scores are based on violations, however we can also quantify things that drivers are doing well by leveraging video telematics, and additionally compare them to the average across the entire fleet.
