@@ -6,6 +6,13 @@
 
 We want to focus on establishing a path of improvement by providing dynamic and personalized feedback to drivers.
 
+Some things to include:
+
+- driver feedback so they can learn from their mistakes
+- collision detection/reconstruction
+
+
+
 
 ## Scoring
 

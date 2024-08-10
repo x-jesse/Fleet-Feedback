@@ -15,15 +15,23 @@
         <div class="sidebar">
             <div class="sidebar-item">Your Report</div>
             <div class="sidebar-item">Trips</div>
-            <div class="sidebar-item"></div>
+            <div class="sidebar-item">Learn</div>
             <div class="sidebar-item">Settings</div>
         </div>
         <div id="collapse" class="toggle-button" (click)="collapseSidebar()">
             <mat-icon aria-hidden="false" fontIcon="arrow_back_ios"></mat-icon>
         </div>
     </nav>
-    <div class="home-content-wrapper">
-        <app-view></app-view>
-        <app-dashboard></app-dashboard>
+    <div [ngSwitch]="" class="home-content-wrapper">
+        <ng-container>
+            <app-view></app-view>
+            <div class="bg-image summary-container">
+                <mat-card class="summary-block">
+                    <h2>Welcome message</h2>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio, quos fuga! Odit adipisci aperiam fuga voluptates debitis provident sequi exercitationem, laborum quam voluptatem ipsum rerum beatae, assumenda voluptas ex asperiores.</p>
+                </mat-card>
+            </div>
+            <app-dashboard></app-dashboard>
+        </ng-container>
     </div>
 </div>

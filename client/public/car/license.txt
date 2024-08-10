@@ -1,0 +1,8 @@
+Model Information:
+* title:	gol quadrado - Low Poly
+* source:	https://sketchfab.com/3d-models/gol-quadrado-low-poly-0c78e3afb5144218aade8864bccf92fa
+* author:	HanabLS (https://sketchfab.com/HanabLS)
+
+Model License:
+* license type:	SKETCHFAB Standard (https://sketchfab.com/licenses)
+* requirements:	Under basic restrictions, use worldwide, on all types of media, commercially or not, and in all types of derivative works

@@ -2,11 +2,6 @@ button {
     color: var(--white-ice);
 }
 
-mat-toolbar {
-    display: flex;
-    justify-content: space-between;
-}
-
 .left, .right {
     display: flex;
     align-items: center;
@@ -27,14 +22,18 @@ mat-toolbar {
     flex-direction: column;
 }
 
+nav.sidebar-container, .toggle-button {
+    background-color: var(--blizzard-blue);
+}
+
 nav.sidebar-container {
-    background-color: var(--seagull);
     height: 100vh;
     width: 200px;
     max-width: 600px;
+    top: 0;
     position: sticky;
-    color: var(--white-ice);
-    transition: all .1s linear;
+    color: var(--darker);
+    transition: width .1s linear;
     z-index: 1;
 }
 
@@ -49,7 +48,6 @@ nav.sidebar-container {
 }
 
 .toggle-button {
-    background-color: var(--seagull);
     border-radius: 20%;
     display: inline;
     float: right;
@@ -70,12 +68,29 @@ nav.sidebar-container.collapsed {
     cursor: pointer;
 }
 
+.summary-container.bg-image {
+    background: url('../../../../public/homebg.jpg') 50% 30%/cover no-repeat;
+    height: 65vh;
+    display: flex;
+}
+
 mat-toolbar {
     position: fixed;
-    background-color: var(--shakespeare);
+    background-color: var(--darker);
     z-index: 2;
     width: 100%;
     color: var(--white-ice);
+    display: flex;
+    justify-content: space-between;
+}
+
+mat-card.summary-block {
+    margin: 5rem;
+    padding: 4rem;
+    width: 50%;
+    height: fit-content;
+    // position: relative;
+    // left: 40px;
 }
 
 app-view {
@@ -85,4 +100,5 @@ app-view {
 
 app-dashboard {
     width: 100%;
+    min-height: 1000px;
 }
