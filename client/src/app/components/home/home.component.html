@@ -1,2 +1,29 @@
-<p>home works!</p>
-<input type="text" pInputText>
+<div class="home-container">
+    <mat-toolbar>
+        <div class="left">
+            <button mat-icon-button >
+                <mat-icon aria-hidden="false" fontIcon="menu"></mat-icon>
+            </button>
+            <span id="">Toolbar</span>
+            <span>Other</span>
+        </div>
+        <div class="right">
+            <span id="profile">Profile</span>
+        </div>
+    </mat-toolbar>
+    <nav class="sidebar-container" [ngClass]="{'collapsed': sidebarCollapsed}">
+        <div class="sidebar">
+            <div class="sidebar-item">Your Report</div>
+            <div class="sidebar-item">Trips</div>
+            <div class="sidebar-item"></div>
+            <div class="sidebar-item">Settings</div>
+        </div>
+        <div id="collapse" class="toggle-button" (click)="collapseSidebar()">
+            <mat-icon aria-hidden="false" fontIcon="arrow_back_ios"></mat-icon>
+        </div>
+    </nav>
+    <div class="home-content-wrapper">
+        <app-view></app-view>
+        <app-dashboard></app-dashboard>
+    </div>
+</div>

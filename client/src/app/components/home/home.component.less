@@ -1,0 +1,88 @@
+button {
+    color: var(--white-ice);
+}
+
+mat-toolbar {
+    display: flex;
+    justify-content: space-between;
+}
+
+.left, .right {
+    display: flex;
+    align-items: center;
+}
+
+.left > span {
+    margin: 1rem;
+}
+
+.home-container {
+    max-width: 100vw;
+    display: flex;
+}
+
+.home-content-wrapper {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+
+nav.sidebar-container {
+    background-color: var(--seagull);
+    height: 100vh;
+    width: 200px;
+    max-width: 600px;
+    position: sticky;
+    color: var(--white-ice);
+    transition: all .1s linear;
+    z-index: 1;
+}
+
+.sidebar {
+    margin: 10rem 0 0 0;
+    overflow: hidden;
+}
+
+.sidebar-item {
+    margin: 1rem 5rem 3rem 2rem;
+    width: 100%;
+}
+
+.toggle-button {
+    background-color: var(--seagull);
+    border-radius: 20%;
+    display: inline;
+    float: right;
+    position: relative;
+    margin-top: 50vh;
+    left: 20px;
+    padding: 30px 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+nav.sidebar-container.collapsed {
+    width: 20px;
+}
+
+.sidebar-item:hover, .toggle-button:hover {
+    cursor: pointer;
+}
+
+mat-toolbar {
+    position: fixed;
+    background-color: var(--shakespeare);
+    z-index: 2;
+    width: 100%;
+    color: var(--white-ice);
+}
+
+app-view {
+    width: 100%;
+    height: 50%;
+}
+
+app-dashboard {
+    width: 100%;
+}

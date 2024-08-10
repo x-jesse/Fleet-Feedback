@@ -7,8 +7,11 @@ import { Observable } from 'rxjs';
 })
 export class AuthService {
   private apiUrl = 'http://localhost:3000/api/auth';
+  private isLoggedIn = false;
 
   constructor(private http: HttpClient) { }
+
+  isAuthenticated() {}
 
   login(email: string, password: string): Observable<any> {
     console.log("logging in")
