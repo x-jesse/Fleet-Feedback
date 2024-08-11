@@ -1,5 +1,7 @@
 button {
-    color: var(--white-ice);
+    color: white;
+    border: none;
+    font-weight: bold;
 }
 
 .left, .right {
@@ -23,7 +25,8 @@ button {
 }
 
 nav.sidebar-container, .toggle-button {
-    background-color: var(--blizzard-blue);
+    background-color: var(--white-ice);
+    color: white;
 }
 
 nav.sidebar-container {
@@ -31,20 +34,42 @@ nav.sidebar-container {
     width: 200px;
     max-width: 600px;
     top: 0;
+    display: flex;
+    flex-direction: column;
     position: sticky;
-    color: var(--darker);
     transition: width .1s linear;
     z-index: 1;
+    background-image: url('../../../../public/loginbg.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: rgba(255, 255, 255, 0.742);
+    background-blend-mode: overlay;
 }
 
 .sidebar {
-    margin: 10rem 0 0 0;
+    margin: 7rem 0 0 0;
     overflow: hidden;
+    background-color: var(--seagull);
+    opacity: 95%;
+    padding-top: 1rem;
+    padding-bottom: 2rem;
 }
 
 .sidebar-item {
-    margin: 1rem 5rem 3rem 2rem;
+    margin-right: 2rem;
     width: 100%;
+    display: flex;
+    align-items: center;
+    background-color: var(--seagull);
+    border: none;
+    font-size: inherit;
+    padding: 1rem;
+}
+
+.sidebar-item span {
+    margin-left: 12px;
+    position: relative;
+    top: 1.5px;
 }
 
 .toggle-button {
@@ -52,12 +77,26 @@ nav.sidebar-container {
     display: inline;
     float: right;
     position: relative;
-    margin-top: 50vh;
+    margin-top: 300px;
     left: 20px;
     padding: 30px 8px;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+#logout {
+    color: var(--charcoal);
+    margin: auto 0 2rem 1rem;
+    background: none;
+    display: flex;
+    align-items: center;
+    font-size: 1.2rem;
+    font-weight: normal;
+}
+
+#logout > mat-icon {
+    margin-right: 10px;
 }
 
 nav.sidebar-container.collapsed {
@@ -76,10 +115,11 @@ nav.sidebar-container.collapsed {
 
 mat-toolbar {
     position: fixed;
-    background-color: var(--darker);
+    background-color: var(--shakespeare);
+    font-weight: bold;
     z-index: 2;
     width: 100%;
-    color: var(--white-ice);
+    color: white;
     display: flex;
     justify-content: space-between;
 }
@@ -89,8 +129,6 @@ mat-card.summary-block {
     padding: 4rem;
     width: 50%;
     height: fit-content;
-    // position: relative;
-    // left: 40px;
 }
 
 app-view {
@@ -101,4 +139,8 @@ app-view {
 app-dashboard {
     width: 100%;
     min-height: 1000px;
+}
+
+app-map-view {
+    height: 50vh;
 }

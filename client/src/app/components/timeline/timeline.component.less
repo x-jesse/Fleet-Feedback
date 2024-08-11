@@ -1,24 +1,33 @@
-/* timeline.component.css */
-.p-timeline-event-opposite {
-    text-align: center;
-  }
-  
-  .p-timeline-event-content {
-    text-align: center;
-    margin-top: 0.5rem;
-  }
-  
-  .p-timeline-event-separator {
+.timeline-container {
+  // padding: 1rem;
+  width: 60%;
+}
+
+.marker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;  /* Outer circle diameter */
+  height: 20px; /* Outer circle diameter */
+  border: 2px solid gray;  /* Outer circle border */
+  border-radius: 50%;  /* Makes it a circle */
+  position: absolute;
+}
+
+.marker.inner {
+  background-color: grey;
+  width: 12px;
+  height: 12px;
+}
+
+.marker:hover {
+  cursor: pointer;
+}
+
+:host ::ng-deep {
+  .p-timeline-horizontal .p-timeline-event {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
+    flex: 1;
   }
-  
-  .p-timeline-event-marker {
-    background-color: #673AB7;
-  }
-  
-  .p-timeline-event-connector {
-    background-color: #9E9E9E;
-  }
-  
+}

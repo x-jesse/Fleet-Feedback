@@ -11,6 +11,7 @@ import { ViewComponent } from '../view/view.component';
 import { Menu, MenuModule } from 'primeng/menu';
 import { MenuItem } from 'primeng/api';
 import { CommonModule } from '@angular/common';
+import { MapViewComponent } from '../map-view/map-view.component';
 
 @Component({
   selector: 'app-home',
@@ -26,7 +27,8 @@ import { CommonModule } from '@angular/common';
     MenuModule,
     CommonModule,
     DashboardComponent,
-    ViewComponent
+    ViewComponent,
+    MapViewComponent
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.less'

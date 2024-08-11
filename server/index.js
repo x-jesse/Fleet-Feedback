@@ -20,6 +20,10 @@ app.get('/', (req, res) => {
     res.send('OWO');
 })
 
+app.get('/api/get-maps-api', (req, res) => {
+    res.status(200).json({apiKey: process.env.MAPS_API});
+});
+
 app.use('/api/auth', authRoutes);
 
 app.post('/api/users', async (req, res) => {

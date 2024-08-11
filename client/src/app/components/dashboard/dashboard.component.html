@@ -1,15 +1,12 @@
 <div class="dashboard-container">
     <p-tabView>
+        <p-tabPanel header="Trip Timeline">
+            <app-timeline></app-timeline>
+        </p-tabPanel>
         <p-tabPanel header="Summary">
             <p>Your most recent trip was on {{ trip_date }}</p>
             <p>You had {{num_incidents}} incidents in the past 7 days</p>
             <p>CSA score: {{csa_score}}</p>
-        </p-tabPanel>
-        <p-tabPanel header="Trip Timeline">
-            <p>Your most recent trip was on {{ trip_date }}</p>
-            <p>You had {{num_incidents}} in the past 7 days</p>
-            <p>CSA score: {{csa_score}}</p>
-            <app-timeline></app-timeline>
         </p-tabPanel>
         <p-tabPanel header="Table">
             <p>

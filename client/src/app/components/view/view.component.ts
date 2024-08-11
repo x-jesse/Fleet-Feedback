@@ -42,12 +42,12 @@ export class ViewComponent implements OnInit, AfterViewInit {
     this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     this.camera.position.z = 10;
 
-    this.renderer = new THREE.WebGLRenderer();
+    this.renderer = new THREE.WebGLRenderer({ antialias: true});
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     this.rendererContainer.nativeElement.appendChild(this.renderer.domElement);
 
-    const controls = new OrbitControls(this.camera, this.renderer.domElement);
-    controls.update();
+    this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+    this.controls.update();
 
     const light = new THREE.DirectionalLight(0xffffff, 1);
     light.position.set(5, 10, 7.5).normalize();
@@ -66,25 +66,21 @@ export class ViewComponent implements OnInit, AfterViewInit {
     const loader = new GLTFLoader();
     loader.load('car/scene.gltf', (gltf: any) => {
       this.car1 = gltf.scene;
-      this.car1.position.set(0, 0.5, 0); // Set initial position
       this.car1.scale.set(0.5, 0.5, 0.5); // Adjust scale if necessary
-      this.car1.rotation.y = Math.PI / 2; // Rotate car1 by 90 degrees around the y-axis
       this.scene.add(this.car1);
       console.log(this.car1);
     });
 
     loader.load('car/scene.gltf', (gltf: any) => {
       this.car2 = gltf.scene;
-      this.car2.position.set(5, 0.5, 0); // Set initial position
       this.car2.scale.set(0.5, 0.5, 0.5); // Adjust scale if necessary
-      this.car2.rotation.y = Math.PI / 2; // Rotate car2 by 90 degrees around the y-axis
       this.scene.add(this.car2);
     });
   }
 
   private initCannonJS(): void {
     this.world = new World();
-    this.world.gravity.set(0, -2, 0);
+    this.world.gravity.set(0, -9.81, 0);
 
     // Create the road as a static body
     const roadBody = new Body({ mass: 0 }); // mass = 0 makes it static

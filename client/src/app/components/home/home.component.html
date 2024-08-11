@@ -1,37 +1,51 @@
 <div class="home-container">
-    <mat-toolbar>
-        <div class="left">
-            <button mat-icon-button >
-                <mat-icon aria-hidden="false" fontIcon="menu"></mat-icon>
-            </button>
-            <span id="">Toolbar</span>
-            <span>Other</span>
-        </div>
-        <div class="right">
-            <span id="profile">Profile</span>
-        </div>
-    </mat-toolbar>
-    <nav class="sidebar-container" [ngClass]="{'collapsed': sidebarCollapsed}">
-        <div class="sidebar">
-            <div class="sidebar-item">Your Report</div>
-            <div class="sidebar-item">Trips</div>
-            <div class="sidebar-item">Learn</div>
-            <div class="sidebar-item">Settings</div>
-        </div>
-        <div id="collapse" class="toggle-button" (click)="collapseSidebar()">
-            <mat-icon aria-hidden="false" fontIcon="arrow_back_ios"></mat-icon>
-        </div>
-    </nav>
-    <div [ngSwitch]="" class="home-content-wrapper">
-        <ng-container>
-            <app-view></app-view>
-            <div class="bg-image summary-container">
+  <mat-toolbar>
+    <div class="left">
+      <button mat-icon-button (click)="collapseSidebar()">
+        <mat-icon aria-hidden="false" fontIcon="menu"></mat-icon>
+      </button>
+      <span id="">Fleet Feedback</span>
+    </div>
+    <div class="right">
+      <span id="profile">Profile</span>
+    </div>
+  </mat-toolbar>
+  <nav class="sidebar-container" [ngClass]="{ collapsed: sidebarCollapsed }">
+    <div class="sidebar">
+      <button class="sidebar-item">
+        <mat-icon fontIcon="home"></mat-icon><span>Your Report</span>
+      </button>
+      <button class="sidebar-item">
+        <mat-icon fontIcon="history"></mat-icon><span>Trip History</span>
+      </button>
+      <button class="sidebar-item">
+        <mat-icon fontIcon="school"></mat-icon><span>Education</span>
+      </button>
+      <button class="sidebar-item">
+        <mat-icon fontIcon="open_in_new"></mat-icon><span>MyGeotab</span>
+      </button>
+      <button class="sidebar-item" id="settings">
+        <mat-icon fontIcon="settings"></mat-icon><span>Settings</span>
+      </button>
+    </div>
+    <!-- <div id="collapse" class="toggle-button" (click)="collapseSidebar()">
+        <mat-icon aria-hidden="false" fontIcon="arrow_back_ios"></mat-icon>
+    </div> -->
+    <button id="logout">
+      <mat-icon fontIcon="logout"></mat-icon><span>Logout</span>
+    </button>
+  </nav>
+  <div [ngSwitch]="" class="home-content-wrapper">
+    <ng-container>
+      <!-- <app-view></app-view> -->
+      <app-map-view></app-map-view>
+      <!-- <div class="bg-image summary-container">
                 <mat-card class="summary-block">
                     <h2>Welcome message</h2>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio, quos fuga! Odit adipisci aperiam fuga voluptates debitis provident sequi exercitationem, laborum quam voluptatem ipsum rerum beatae, assumenda voluptas ex asperiores.</p>
                 </mat-card>
-            </div>
-            <app-dashboard></app-dashboard>
-        </ng-container>
-    </div>
+            </div> -->
+      <app-dashboard></app-dashboard>
+    </ng-container>
+  </div>
 </div>

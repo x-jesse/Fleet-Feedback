@@ -1,5 +1,8 @@
-<!-- timeline.component.html -->
-<p-timeline [value]="events" [layout]="'horizontal'" [align]="'bottom'">
+<div class="timeline-container">
+  <p-timeline [value]="events" [layout]="'horizontal'" [align]="'bottom'">
+    <ng-template pTemplate="marker" let-event>
+      <span class="marker outer"><span class="marker inner"></span></span>
+    </ng-template>
     <ng-template pTemplate="content" let-event>
       <small>{{ event.date }}</small>
       <p>{{ event.description }}</p>
@@ -8,4 +11,4 @@
       <h3>{{ event.status }}</h3>
     </ng-template>
   </p-timeline>
-  
+</div>
