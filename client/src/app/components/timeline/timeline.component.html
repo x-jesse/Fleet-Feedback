@@ -4,11 +4,20 @@
       <span class="marker outer"><span class="marker inner"></span></span>
     </ng-template>
     <ng-template pTemplate="content" let-event>
-      <small>{{ event.date }}</small>
-      <p>{{ event.description }}</p>
+      <div (click)="setActiveEvent(event.id)" [ngClass]="{'active': isActive(event.id)}" class="event-tab">
+        <small>{{ event.date }}</small>
+        <p>{{ event.description }}</p>
+      </div>
     </ng-template>
     <ng-template pTemplate="opposite" let-event>
       <h3>{{ event.status }}</h3>
     </ng-template>
   </p-timeline>
+
+  <!-- Display additional info for the active event -->
+  <div *ngIf="activeEventId" class="event-info">
+    <h2>Details for Event {{ activeEventId }}</h2>
+    <!-- <video src="https://www.youtube.com/watch?v=Dy5HpijNuj4"></video> -->
+    <button (click)="reconstruct()">Reconstruct</button>
+  </div>
 </div>
