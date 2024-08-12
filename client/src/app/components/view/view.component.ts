@@ -2,9 +2,8 @@ import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angula
 import * as THREE from 'three';
 import { GLTFLoader } from 'three-stdlib';
 import { World, Body, Box, Plane, Vec3 } from 'cannon-es';
-import { HttpClient } from '@angular/common/http';
+import CannonDebugger from 'cannon-es-debugger';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-
 
 @Component({
   selector: 'app-view',
@@ -27,6 +26,9 @@ export class ViewComponent implements OnInit, AfterViewInit {
   private car2Body!: Body;
   private road!: THREE.Mesh;
 
+  // Declare cannonDebugger with the correct type
+  private cannonDebugger!: ReturnType<typeof CannonDebugger>;
+
   constructor() {}
 
   ngOnInit(): void {}
@@ -40,9 +42,9 @@ export class ViewComponent implements OnInit, AfterViewInit {
   private initThreeJS(): void {
     this.scene = new THREE.Scene();
     this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    this.camera.position.z = 10;
+    this.camera.position.set(0, 10, 10);
 
-    this.renderer = new THREE.WebGLRenderer({ antialias: true});
+    this.renderer = new THREE.WebGLRenderer({ antialias: true });
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     this.rendererContainer.nativeElement.appendChild(this.renderer.domElement);
 
@@ -54,27 +56,54 @@ export class ViewComponent implements OnInit, AfterViewInit {
     this.scene.add(light);
     this.scene.background = new THREE.Color('white');
 
-    // Add a road (a simple plane)
-    const roadGeometry = new THREE.PlaneGeometry(50, 10);
-    const roadMaterial = new THREE.MeshStandardMaterial({ color: 0x333333 });
-    this.road = new THREE.Mesh(roadGeometry, roadMaterial);
-    this.road.rotation.x = -Math.PI / 2; // Rotate the plane to make it horizontal
-    this.road.position.y = 0; // Set it to y = 0, matching the Cannon.js setup
-    this.scene.add(this.road);
+    const groundGeo = new THREE.PlaneGeometry(10000, 10000);
+    const groundMat = new THREE.MeshStandardMaterial({ color: 0x42f55d, side: THREE.DoubleSide });
+    const ground = new THREE.Mesh(groundGeo, groundMat);
 
-    // Load car models
+    // Rotate the plane to make it horizontal
+    ground.rotation.x = -Math.PI / 2;
+    this.scene.add(ground)
+
     const loader = new GLTFLoader();
     loader.load('car/scene.gltf', (gltf: any) => {
       this.car1 = gltf.scene;
       this.car1.scale.set(0.5, 0.5, 0.5); // Adjust scale if necessary
       this.scene.add(this.car1);
-      console.log(this.car1);
     });
 
     loader.load('car/scene.gltf', (gltf: any) => {
       this.car2 = gltf.scene;
       this.car2.scale.set(0.5, 0.5, 0.5); // Adjust scale if necessary
       this.scene.add(this.car2);
+    });
+
+    loader.load('models/test/car.glb', (gltf: any) => {
+      const scene = gltf.scene;
+      const obj = scene;
+      const scale_factor = 70;
+      obj.scale.set(scale_factor, scale_factor, scale_factor);
+      obj.position.set(20, 0, -50);
+      this.scene.add(obj)
+    });
+    
+    for (let i = 0; i < 5; i++) {
+      loader.load('models/test/road_normal.glb', (gltf: any) => {
+        const scene = gltf.scene;
+        const obj = scene;
+        const scale_factor = 3.5;
+        obj.scale.set(scale_factor, scale_factor, scale_factor);
+        obj.position.set(10 * scale_factor + i * 7, 0 * scale_factor, 10 * scale_factor);
+        this.scene.add(obj)
+      });
+    }
+
+    loader.load('models/test/house.glb', (gltf: any) => {
+      const scene = gltf.scene;
+      const obj = scene;
+      const scale_factor = 3;
+      obj.scale.set(scale_factor, scale_factor, scale_factor);
+      obj.position.set(0 * scale_factor, 0 * scale_factor, 20 * scale_factor);
+      this.scene.add(obj)
     });
   }
 
@@ -101,6 +130,9 @@ export class ViewComponent implements OnInit, AfterViewInit {
     this.car2Body.position.set(5, 0.5, 0);
     this.car2Body.quaternion.setFromEuler(0, Math.PI / 2, 0); // Rotate car2 body by 90 degrees around the y-axis
     this.world.addBody(this.car2Body);
+
+    // Initialize CannonDebugger
+    this.cannonDebugger = CannonDebugger(this.scene, this.world);
   }
 
   private animate(): void {
@@ -119,6 +151,9 @@ export class ViewComponent implements OnInit, AfterViewInit {
       this.car2.position.copy(this.car2Body.position as unknown as THREE.Vector3);
       this.car2.quaternion.copy(this.car2Body.quaternion as unknown as THREE.Quaternion);
     }
+
+    // Update CannonDebugger
+    this.cannonDebugger.update();
 
     this.world.step(1 / 60);
     this.renderer.render(this.scene, this.camera);

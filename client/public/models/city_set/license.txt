@@ -1,0 +1,11 @@
+Model Information:
+* title:	City Set
+* source:	https://sketchfab.com/3d-models/city-set-9f715c46974f482aa640ef57a38edbee
+* author:	dimakor943 (https://sketchfab.com/dimakor943)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "City Set" (https://sketchfab.com/3d-models/city-set-9f715c46974f482aa640ef57a38edbee) by dimakor943 (https://sketchfab.com/dimakor943) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
