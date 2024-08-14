@@ -1,0 +1,15 @@
+<div class="chat-container">
+    <div class="chat-box">
+      <div class="messages">
+        <div *ngFor="let message of messages" [ngClass]="{'user-message': message.sender === 'user', 'assistant-message': message.sender === 'assistant'}">
+          <p>{{ message.text }}</p>
+        </div>
+      </div>
+      <mat-form-field appearance="fill" class="message-input">
+        <mat-label>Message</mat-label>
+        <textarea matInput [(ngModel)]="newMessage" placeholder="Type your message..."></textarea>
+        <button mat-raised-button color="primary" (click)="sendMessage()">Send</button>
+      </mat-form-field>
+    </div>
+</div>
+  

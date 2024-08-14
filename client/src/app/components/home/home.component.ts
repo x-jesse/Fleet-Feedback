@@ -12,6 +12,8 @@ import { Menu, MenuModule } from 'primeng/menu';
 import { MenuItem } from 'primeng/api';
 import { CommonModule } from '@angular/common';
 import { MapViewComponent } from '../map-view/map-view.component';
+import { TripTableComponent } from '../trip-table/trip-table.component';
+import { ChatComponent } from '../chat/chat.component';
 
 @Component({
   selector: 'app-home',
@@ -28,7 +30,9 @@ import { MapViewComponent } from '../map-view/map-view.component';
     CommonModule,
     DashboardComponent,
     ViewComponent,
-    MapViewComponent
+    MapViewComponent,
+    TripTableComponent,
+    ChatComponent
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.less'
@@ -36,32 +40,12 @@ import { MapViewComponent } from '../map-view/map-view.component';
 export class HomeComponent implements OnInit {
   items!: MenuItem[]
   sidebarCollapsed = false;
+  viewmode: number = 0;
 
-  ngOnInit() {
-    this.items = [
-      {
-        label: 'File',
-        items: [
-          { label: 'New', icon: 'pi pi-fw pi-plus'},
-          { label: 'Open', icon: 'pi pi-fw pi-folder-open' },
-          { label: 'Quit', icon: 'pi pi-fw pi-power-off' }
-        ]
-      },
-      {
-        label: 'Edit',
-        items: [
-          { label: 'Undo', icon: 'pi pi-fw pi-undo' },
-          { label: 'Redo', icon: 'pi pi-fw pi-redo' }
-        ]
-      },
-      {
-        label: 'Help',
-        items: [
-          { label: 'Contents', icon: 'pi pi-fw pi-file' },
-          { label: 'Search', icon: 'pi pi-fw pi-search' }
-        ]
-      }
-    ]
+  ngOnInit() {}
+
+  setView(mode: number) {
+    this.viewmode = mode;
   }
 
   collapseSidebar() {

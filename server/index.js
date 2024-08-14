@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const authRoutes = require('./routes/auth.js');
+const tripRoutes = require('./routes/trips.js');
 
 dotenv.config();
 
@@ -17,7 +18,7 @@ mongoose.connect(process.env.MONGO_URI)
 .catch(err => console.log(error));
 
 app.get('/', (req, res) => {
-    res.send('OWO');
+    res.send('this is home');
 })
 
 app.get('/api/get-maps-api', (req, res) => {
@@ -25,6 +26,7 @@ app.get('/api/get-maps-api', (req, res) => {
 });
 
 app.use('/api/auth', authRoutes);
+app.use('/api/trips', tripRoutes);
 
 app.post('/api/users', async (req, res) => {
     try {

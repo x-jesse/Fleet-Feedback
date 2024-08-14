@@ -12,14 +12,14 @@
   </mat-toolbar>
   <nav class="sidebar-container" [ngClass]="{ collapsed: sidebarCollapsed }">
     <div class="sidebar">
-      <button class="sidebar-item">
+      <button class="sidebar-item" (click)="setView(0)">
         <mat-icon fontIcon="home"></mat-icon><span>Your Report</span>
       </button>
-      <button class="sidebar-item">
+      <button class="sidebar-item" (click)="setView(1)">
         <mat-icon fontIcon="history"></mat-icon><span>Trip History</span>
       </button>
-      <button class="sidebar-item">
-        <mat-icon fontIcon="school"></mat-icon><span>Education</span>
+      <button class="sidebar-item" (click)="setView(2)">
+        <mat-icon fontIcon="school"></mat-icon><span>Coaching</span>
       </button>
       <button class="sidebar-item">
         <mat-icon fontIcon="open_in_new"></mat-icon><span>MyGeotab</span>
@@ -28,24 +28,20 @@
         <mat-icon fontIcon="settings"></mat-icon><span>Settings</span>
       </button>
     </div>
-    <!-- <div id="collapse" class="toggle-button" (click)="collapseSidebar()">
-        <mat-icon aria-hidden="false" fontIcon="arrow_back_ios"></mat-icon>
-    </div> -->
     <button id="logout">
       <mat-icon fontIcon="logout"></mat-icon><span>Logout</span>
     </button>
   </nav>
-  <div [ngSwitch]="" class="home-content-wrapper">
-    <ng-container>
-      <!-- <app-view></app-view> -->
+  <div [ngSwitch]="viewmode" class="home-content-wrapper">
+    <ng-container *ngSwitchCase="0">
       <app-map-view></app-map-view>
-      <!-- <div class="bg-image summary-container">
-                <mat-card class="summary-block">
-                    <h2>Welcome message</h2>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio, quos fuga! Odit adipisci aperiam fuga voluptates debitis provident sequi exercitationem, laborum quam voluptatem ipsum rerum beatae, assumenda voluptas ex asperiores.</p>
-                </mat-card>
-            </div> -->
       <app-dashboard></app-dashboard>
+    </ng-container>
+    <ng-container *ngSwitchCase="1">
+        <app-trip-table></app-trip-table>
+    </ng-container>
+    <ng-container *ngSwitchCase="2">
+        <app-chat></app-chat>
     </ng-container>
   </div>
 </div>

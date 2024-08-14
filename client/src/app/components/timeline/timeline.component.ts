@@ -1,8 +1,8 @@
-// timeline.component.ts
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TimelineModule } from 'primeng/timeline';
 import { Router } from '@angular/router';
+import { TripsService } from '../../services/trips.service';
 
 @Component({
   selector: 'app-timeline',
@@ -13,18 +13,21 @@ import { Router } from '@angular/router';
 })
 export class TimelineComponent {
   events!: any[];
+  activeEventId: string | null = null;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private tripsService: TripsService) {}
 
   ngOnInit() {
-    this.events = [
-      { id: 0, status: '2021', date: '01/01/2021', description: 'New Year\'s Day' },
-      { id: 1, status: '2021', date: '14/02/2021', description: 'Valentine\'s Day' },
-      { id: 2, status: '2021', date: '17/03/2021', description: 'St. Patrick\'s Day' },
-      { id: 3, status: '2021', date: '25/12/2021', description: 'Christmas Day' }
-    ];
+    this.tripsService.getIncidents().subscribe(
+      (data) => {
+        this.events = data;
+
+        if (this.events.length > 0) {
+          this.activeEventId = this.events[0].id.toString();
+        }
+      }
+    );
   }
-  activeEventId: string | null = null;
 
   setActiveEvent(eventId: string) {
     this.activeEventId = eventId;
@@ -32,9 +35,5 @@ export class TimelineComponent {
 
   isActive(eventId: string): boolean {
     return this.activeEventId === eventId;
-  }
-
-  reconstruct() {
-    this.router.navigate(['/reconstruct']);
   }
 }

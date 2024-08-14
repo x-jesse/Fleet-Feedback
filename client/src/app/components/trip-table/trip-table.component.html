@@ -1,0 +1,31 @@
+<div class="table-container">
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <!-- Trip ID Column -->
+    <ng-container matColumnDef="tripId">
+      <th mat-header-cell *matHeaderCellDef>Trip ID</th>
+      <td mat-cell *matCellDef="let trip">{{ trip.tripId }}</td>
+    </ng-container>
+
+    <!-- Duration Column -->
+    <ng-container matColumnDef="duration">
+      <th mat-header-cell *matHeaderCellDef>Duration</th>
+      <td mat-cell *matCellDef="let trip">{{ trip.duration }}</td>
+    </ng-container>
+
+    <!-- Offences Column -->
+    <ng-container matColumnDef="offences">
+      <th mat-header-cell *matHeaderCellDef>Offences</th>
+      <td mat-cell *matCellDef="let trip">{{ trip.offences }}</td>
+    </ng-container>
+
+    <!-- Driver ID Column -->
+    <ng-container matColumnDef="driverId">
+      <th mat-header-cell *matHeaderCellDef>Driver ID</th>
+      <td mat-cell *matCellDef="let trip">{{ trip.driverId }}</td>
+    </ng-container>
+
+    <!-- Header and Row Definitions -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</div>

@@ -29,21 +29,8 @@ const TripSchema = new mongoose.Schema({
     unique: true,
   },
   duration: Number,
-  locations: [],
-  offences: {
-    tailgates: {
-      count: Number,
-      occurences: {
-        type: Map
-      },
-      locations: [Tuple],
-      videos: [Buffer]
-    },
-    collisions: {
-      count: Number,
-      locations: [Number]
-    }
-  }
+  offences: Number,
+  driverId: Number
 });
 
-module.exports = mongoose.model('Trip', UserSchema);
+module.exports = mongoose.model('Trip', TripSchema);
