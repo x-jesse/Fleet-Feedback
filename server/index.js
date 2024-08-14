@@ -1,10 +1,12 @@
-const express = require('express');
-const morgan = require('morgan');
-const dotenv = require('dotenv');
-const mongoose = require('mongoose');
-const cors = require('cors');
-const authRoutes = require('./routes/auth.js');
-const tripRoutes = require('./routes/trips.js');
+const express = require("express");
+const morgan = require("morgan");
+const dotenv = require("dotenv");
+const mongoose = require("mongoose");
+const cors = require("cors");
+const gridfsStream = require("gridfs-stream");
+
+const authRoutes = require("./routes/auth.js");
+const tripRoutes = require("./routes/trips.js");
 
 dotenv.config();
 
@@ -13,30 +15,94 @@ app.use(cors());
 app.use(express.json());
 const port = process.env.PORT || 3000;
 
-mongoose.connect(process.env.MONGO_URI)
-.then(() => console.log('Connected.'))
-.catch(err => console.log(error));
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => console.log("Connected."))
+  .catch((err) => console.log(error));
 
-app.get('/', (req, res) => {
-    res.send('this is home');
-})
+const connection = mongoose.connection;
 
-app.get('/api/get-maps-api', (req, res) => {
-    res.status(200).json({apiKey: process.env.MAPS_API});
+let gfs;
+connection.once("open", () => {
+  gfs = gridfsStream(connection.db, mongoose.mongo);
+  gfs.collection("uploads"); // Choose a collection name for your GridFS files
 });
 
-app.use('/api/auth', authRoutes);
-app.use('/api/trips', tripRoutes);
+const multer = require("multer");
+const { GridFsStorage } = require("multer-gridfs-storage");
 
-app.post('/api/users', async (req, res) => {
-    try {
-        const user = await User.create(req.body);
-        res.status(200).json(user);
-    } catch (error) {
-        res.status(500).json({message: error.message});
+// Create storage engine
+const storage = new GridFsStorage({
+  url: process.env.MONGO_URI,
+  file: (req, file) => {
+    return {
+      filename: "test_file",
+      bucketName: "uploads", // The name of the collection you want to store the files in
+    };
+  },
+});
+
+const upload = multer({ storage });
+
+app.post("/api/trips/incidents/upload", upload.single("video"), (req, res) => {
+  try {
+    // The file metadata is stored in req.file
+    if (!req.file) {
+      return res.status(400).send({ message: "No file uploaded" });
     }
-})
+
+    // Send a response with the file details
+    res.status(201).send({
+      message: "File uploaded successfully",
+      fileId: req.file.id, // The ObjectId of the stored file
+    });
+  } catch (error) {
+    console.error("Error uploading file:", error);
+    res.status(500).send({ message: "Internal server error" });
+  }
+});
+
+app.get("/api/trips/incidents/videos/:id", (req, res) => {
+  const fileId = req.params.id;
+
+  // Check if the file exists in GridFS
+  gfs.files.findOne({ _id: mongoose.Types.ObjectId(fileId) }, (err, file) => {
+    if (!file || file.length === 0) {
+      return res.status(404).json({ message: "File not found" });
+    }
+
+    // Set the response headers
+    res.set("Content-Type", file.contentType);
+    res.set("Content-Length", file.length);
+
+    // Create a read stream from GridFS
+    const readstream = gfs.createReadStream({ _id: fileId });
+
+    // Pipe the read stream to the response
+    readstream.pipe(res);
+  });
+});
+
+app.get("/", (req, res) => {
+  res.send("this is home");
+});
+
+app.get("/api/get-maps-api", (req, res) => {
+  res.status(200).json({ apiKey: process.env.MAPS_API });
+});
+
+app.use("/api/auth", authRoutes);
+app.use("/api/trips", tripRoutes);
+
+app.post("/api/users", async (req, res) => {
+  try {
+    const user = await User.create(req.body);
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
 
 app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
+  console.log(`Server is running on http://localhost:${port}`);
 });
