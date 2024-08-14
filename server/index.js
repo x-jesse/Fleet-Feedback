@@ -14,6 +14,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 const port = process.env.PORT || 3000;
+const ObjectId = mongoose.Types.ObjectId;
 
 mongoose
   .connect(process.env.MONGO_URI)
@@ -62,21 +63,30 @@ app.post("/api/trips/incidents/upload", upload.single("video"), (req, res) => {
   }
 });
 
-app.get("/api/trips/incidents/videos/:id", (req, res) => {
+app.get("/api/trips/incidents/videos/:id", async (req, res) => {
   const fileId = req.params.id;
-
-  // Check if the file exists in GridFS
-  gfs.files.findOne({ _id: mongoose.Types.ObjectId(fileId) }, (err, file) => {
+  console.log("req received");
+  try {
+    let files = await gfs.files.findOne({filename: fileId});
+    console.log('found')
+    res.json({ files });
+  } catch (err) {
+    res.json({ err });
+  }
+  return;
+  await gfs.files.findOne({ filename: "test_file" }, (file) => {
     if (!file || file.length === 0) {
+      console.log("fileno");
       return res.status(404).json({ message: "File not found" });
     }
+    console.log("found");
 
     // Set the response headers
     res.set("Content-Type", file.contentType);
     res.set("Content-Length", file.length);
 
     // Create a read stream from GridFS
-    const readstream = gfs.createReadStream({ _id: fileId });
+    const readstream = gfs.createReadStream({ filename: "test_file" });
 
     // Pipe the read stream to the response
     readstream.pipe(res);

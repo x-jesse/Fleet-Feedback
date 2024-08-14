@@ -13,14 +13,15 @@
       <h3>{{ event.status }}</h3>
     </ng-template>
   </p-timeline>
-
+  <video [src]="videoUrl" controls></video>
+  
   <!-- Display additional info for the active event -->
   <div *ngIf="activeEventId" class="event-info">
     <div class="info">
       <h2>Details for Event {{ activeEventId }}</h2>
       <!-- <video src="https://www.youtube.com/watch?v=Dy5HpijNuj4"></video> -->
       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste quae, eius delectus sint dolorem unde incidunt magnam ad, consectetur dignissimos officia et fuga iure sunt cumque atque blanditiis. In, expedita.</p>
-      <div class="video-placeholder"></div>
+      <!-- <div class="video-placeholder"></div> -->
     </div>
   </div>
 </div>

@@ -14,12 +14,17 @@ import { TripsService } from '../../services/trips.service';
 export class TimelineComponent {
   events!: any[];
   activeEventId: string | null = null;
+  videoUrl!: string;
 
   constructor(private router: Router, private tripsService: TripsService) {}
 
   ngOnInit() {
+    const videoId = 'test_file'
+    this.videoUrl = `http://localhost:3000/api/trips/incidents/videos/${videoId}`;
+
     this.tripsService.getIncidents().subscribe(
       (data) => {
+        console.log('getting');
         this.events = data;
 
         if (this.events.length > 0) {

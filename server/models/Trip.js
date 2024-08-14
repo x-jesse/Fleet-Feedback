@@ -30,7 +30,7 @@ const TripSchema = new mongoose.Schema({
   },
   duration: Number,
   offences: Number,
-  driverId: Number
+  driverId: String
 });
 
 module.exports = mongoose.model('Trip', TripSchema);
