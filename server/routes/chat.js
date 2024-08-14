@@ -1,19 +1,13 @@
 const express = require('express');
 const axios = require('axios');
 const router = express.Router();
-require('dotenv').config(); // Load environment variables from .env
+const dotenv = require("dotenv");
 
-const GEN_AI_API_KEY = process.env.GEN_AI_API_KEY;
-
-// Route to get gen_token
-router.get('/get-genai-api', (req, res) => {
-  // Simulate fetching token (replace with real implementation as needed)
-  const token = GEN_AI_API_KEY;
-  res.json({ token });
-});
+dotenv.config();
+const GEN_AI_API_KEY = process.env.GEN_AI;
 
 // Route to proxy chat requests
-router.post('/chat', async (req, res) => {
+router.post('/', async (req, res) => {
   try {
     const response = await axios.post('https://genai-ca.geotab.com/chat', req.body, {
       headers: {

@@ -7,6 +7,7 @@ const gridfsStream = require("gridfs-stream");
 
 const authRoutes = require("./routes/auth.js");
 const tripRoutes = require("./routes/trips.js");
+const chatRoutes = require("./routes/chat.js");
 
 dotenv.config();
 
@@ -130,6 +131,7 @@ app.get("/api/get-genai-api", (req, res) => {
 
 app.use("/api/auth", authRoutes);
 app.use("/api/trips", tripRoutes);
+app.use("/api/chat", chatRoutes);
 
 app.post("/api/users", async (req, res) => {
     try {

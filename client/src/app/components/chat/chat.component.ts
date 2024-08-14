@@ -1,44 +1,55 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 import { ChatService } from '../../services/chat.service';
 
 export interface Message {
   sender: 'user' | 'assistant';
   text: string;
 }
+
 @Component({
   selector: 'app-chat',
   standalone: true,
-  imports: [CommonModule, MatFormFieldModule, FormsModule, MatInputModule],
+  imports: [CommonModule, MatFormFieldModule, FormsModule, MatInputModule, MatButtonModule],
   templateUrl: './chat.component.html',
-  styleUrl: './chat.component.less'
+  styleUrls: ['./chat.component.less']
 })
-export class ChatComponent implements OnInit{
+export class ChatComponent implements OnInit {
   messages: Message[] = [];
   newMessage: string = '';
-  chatResponse: string = '';
 
-  constructor (private chatService: ChatService) {}
+  constructor(private chatService: ChatService) {}
 
   ngOnInit(): void {
+    // Display default message upon initialization
     this.chatService.initMessage().subscribe(
       response => {
-        console.log(response)
-        // Handle the response from the initMessage call
-        this.chatResponse = response; // Assuming response is of type string or can be JSON parsed
+        this.messages.push({ sender: 'assistant', text: response.message.content });
       }
     );
   }
 
-  // Simulate a function to get a response from the assistant
-  getResponseFromAssistant(userMessage: string): Promise<string> {
-    return new Promise(resolve => {
-      setTimeout(() => {
-        resolve(`You said: "${userMessage}". This is a response from the assistant.`);
-      }, 1000);
-    });
+  sendMessage(): void {
+    if (!this.newMessage.trim()) {
+      return;
+    }
+
+    // Add user's message to messages array
+    this.messages.push({ sender: 'user', text: this.newMessage });
+
+    // Call the chat service and handle the response
+    this.chatService.initMessage().subscribe(
+      response => {
+        // Add assistant's response to messages array
+        this.messages.push({ sender: 'assistant', text: response.message });
+      }
+    );
+
+    // Clear the input field after sending the message
+    this.newMessage = '';
   }
 }
