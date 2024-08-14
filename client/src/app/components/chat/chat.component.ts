@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import { ChatService } from '../../services/chat.service';
 
 export interface Message {
   sender: 'user' | 'assistant';
@@ -15,25 +16,21 @@ export interface Message {
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.less'
 })
-export class ChatComponent {
+export class ChatComponent implements OnInit{
   messages: Message[] = [];
   newMessage: string = '';
+  chatResponse: string = '';
 
-  sendMessage() {
-    if (this.newMessage.trim()) {
-      console.log('message')
-      // Add user message
-      this.messages.push({ sender: 'user', text: this.newMessage });
+  constructor (private chatService: ChatService) {}
 
-      // Simulate sending message to a backend or chat service
-      this.getResponseFromAssistant(this.newMessage).then(response => {
-        // Add assistant response
-        this.messages.push({ sender: 'assistant', text: response });
-      });
-
-      // Clear the input
-      this.newMessage = '';
-    }
+  ngOnInit(): void {
+    this.chatService.initMessage().subscribe(
+      response => {
+        console.log(response)
+        // Handle the response from the initMessage call
+        this.chatResponse = response; // Assuming response is of type string or can be JSON parsed
+      }
+    );
   }
 
   // Simulate a function to get a response from the assistant
