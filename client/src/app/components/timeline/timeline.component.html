@@ -31,7 +31,7 @@
     <mat-sidenav-container>
       <mat-sidenav-content>
         <div class="info">
-          <h2>Details for Event {{ activeEventId }}</h2>
+          <h2>{{ getActiveEvent()?.incidentType }}</h2>
           <p><strong>Incident Type:</strong> {{ getActiveEvent()?.incidentType }}</p>
           <p><strong>Description:</strong> {{ getActiveEvent()?.description }}</p>
           <p><strong>Time:</strong> {{ getActiveEvent()?.time }}</p>
@@ -42,7 +42,7 @@
       <mat-sidenav position="end" opened mode="side">
         <div class="feedback">
           <h2>Feedback</h2>
-          <p></p>
+          <app-feedback [eventType]="getActiveEvent()?.incidentType"></app-feedback>
         </div>
       </mat-sidenav>
     </mat-sidenav-container>

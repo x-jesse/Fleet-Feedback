@@ -1,0 +1,7 @@
+<div *ngIf="feedbackMessage" class="feedback-container">
+    <h2>{{ feedbackMessage.title }}</h2>
+    <p><strong>Issue:</strong> {{ feedbackMessage.issue }}</p>
+    <p><strong>Tips:</strong> {{ feedbackMessage.tips }}</p>
+    <p><strong>Evidence:</strong> <span [innerHTML]="feedbackMessage.evidence"></span></p>
+</div>
+  

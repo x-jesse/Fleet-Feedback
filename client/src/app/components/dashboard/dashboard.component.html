@@ -1,36 +1,41 @@
 <div class="dashboard-container">
-    <p-tabView>
-      <p-tabPanel header="Trip Timeline">
-        <app-timeline></app-timeline>
-      </p-tabPanel>
-      <p-tabPanel header="Summary">
-        <p>Your most recent trip was on {{ trip_date }}</p>
-        <p>You had {{ num_incidents }} incidents in the past 7 days</p>
-        <p>CSA score: {{ csa_score }}</p>
-      </p-tabPanel>
-      <p-tabPanel header="Table View">
-        <p>Table of Trips</p>
-        <p-table [value]="trips">
-          <ng-template pTemplate="header">
-            <tr>
-              <th>ID</th>
-              <th>Date</th>
-              <th>Description</th>
-              <th>Incidents</th>
-              <th>CSA Score</th>
-            </tr>
-          </ng-template>
-          <ng-template pTemplate="body" let-trip>
-            <tr>
-              <td>{{ trip.id }}</td>
-              <td>{{ trip.date }}</td>
-              <td>{{ trip.description }}</td>
-              <td>{{ trip.incidents }}</td>
-              <td>{{ trip.csaScore }}</td>
-            </tr>
-          </ng-template>
-        </p-table>
-      </p-tabPanel>
-    </p-tabView>
-  </div>
-  
+  <p-tabView>
+    <p-tabPanel header="Trip Timeline">
+      <app-timeline></app-timeline>
+    </p-tabPanel>
+    <p-tabPanel header="Summary">
+      <p>Your most recent trip was on {{ trip_date }}</p>
+      <p>You had {{ num_incidents }} incidents in the past 7 days</p>
+      <p>CSA score: {{ csa_score }}</p>
+      <p>Total Distance Covered: {{ total_distance }} km</p>
+      <p>Trip Duration: {{ trip_duration }} hours</p>
+      <p>Average Speed: {{ average_speed }} km/h</p>
+      <p>Fuel Efficiency: {{ fuel_efficiency }} km/l</p>
+      <p>Driver Rating: {{ driver_rating }}/5</p>
+      <p>Weather Conditions: {{ weather_conditions }}</p>
+      <p>Eco-Driving Score: {{ eco_driving_score }}</p>
+      <p>Route Highlights: {{ route_highlights }}</p>
+    </p-tabPanel>
+    <p-tabPanel header="Table View">
+      <p>Table of Incidents</p>
+      <p-table [value]="incidents">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Date</th>
+            <th>Type</th>
+            <th>Location</th>
+            <th>Description</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-incident>
+          <tr>
+            <td>Aug 15 2024</td>
+            <td>{{ incident.incidentType }}</td>
+            <td>{{ incident.latitude }}, {{ incident.longitude }}</td>
+            <td>None</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </p-tabPanel>
+  </p-tabView>
+</div>

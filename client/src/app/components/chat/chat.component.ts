@@ -5,10 +5,11 @@ import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { ChatService } from '../../services/chat.service';
+import { TripsService } from '../../services/trips.service';
 
 export interface Message {
-  sender: 'user' | 'assistant';
-  text: string;
+  role: 'user' | 'system' | 'assistant';
+  content: string;
 }
 
 @Component({
@@ -22,15 +23,24 @@ export class ChatComponent implements OnInit {
   messages: Message[] = [];
   newMessage: string = '';
 
-  constructor(private chatService: ChatService) {}
+  constructor(private chatService: ChatService, private tripsService: TripsService) {}
 
   ngOnInit(): void {
-    // Display default message upon initialization
-    this.chatService.initMessage().subscribe(
-      response => {
-        this.messages.push({ sender: 'assistant', text: response.message.content });
-      }
-    );
+    // Get incidents and initialize chat messages
+    this.tripsService.getIncidents(1234).subscribe(incidents => {
+      this.chatService.initMessage(incidents).subscribe(
+        response => {
+          // Split the response content by newline characters
+          const responseParts = response.message.content.split('\n');
+          // Push each part as a separate message
+          responseParts.forEach((part: String) => {
+            if (part.trim()) { // Ensure that we don't add empty lines as messages
+              this.messages.push({ role: 'assistant', content: part.trim() });
+            }
+          });
+        }
+      );
+    });
   }
 
   sendMessage(): void {
@@ -38,18 +48,21 @@ export class ChatComponent implements OnInit {
       return;
     }
 
-    // Add user's message to messages array
-    this.messages.push({ sender: 'user', text: this.newMessage });
+    this.messages.push({ role: 'user', content: this.newMessage });
 
-    // Call the chat service and handle the response
-    this.chatService.initMessage().subscribe(
+    this.chatService.sendMessage(this.messages).subscribe(
       response => {
-        // Add assistant's response to messages array
-        this.messages.push({ sender: 'assistant', text: response.message });
+        // Split the response content by newline characters
+        const responseParts = response.message.content.split('\n');
+        // Push each part as a separate message
+        responseParts.forEach((part: String) => {
+          if (part.trim()) { // Ensure that we don't add empty lines as messages
+            this.messages.push({ role: 'assistant', content: part.trim() });
+          }
+        });
       }
     );
 
-    // Clear the input field after sending the message
     this.newMessage = '';
   }
 }

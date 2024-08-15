@@ -5,11 +5,12 @@ import { Router } from '@angular/router';
 import { TripsService } from '../../services/trips.service';
 import { TooltipModule } from 'primeng/tooltip';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import { FeedbackComponent } from '../feedback/feedback.component';
 
 @Component({
   selector: 'app-timeline',
   standalone: true,
-  imports: [CommonModule, TimelineModule, TooltipModule, MatSidenavModule],
+  imports: [CommonModule, TimelineModule, TooltipModule, MatSidenavModule, FeedbackComponent],
   templateUrl: './timeline.component.html',
   styleUrls: ['./timeline.component.less']
 })
