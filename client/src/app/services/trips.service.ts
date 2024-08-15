@@ -21,7 +21,7 @@ export class TripsService {
     return this.http.get<Trip[]>(this.url);
   }
 
-  getIncidents(): Observable<Trip[]> {
-    return this.http.get<Trip[]>(`${this.url}/incidents`);
+  getIncidents(tripId: number): Observable<Trip[]> {
+    return this.http.get<Trip[]>(`${this.url}/incidents/${tripId}`);
   }
 }

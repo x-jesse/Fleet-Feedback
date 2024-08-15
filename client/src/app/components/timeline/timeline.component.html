@@ -1,27 +1,50 @@
 <div class="timeline-container">
   <p-timeline [value]="events" [layout]="'horizontal'" [align]="'bottom'">
     <ng-template pTemplate="marker" let-event>
-      <span class="marker outer"><span class="marker inner"></span></span>
+      <span
+        class="marker outer"
+        (click)="setActiveEvent(event._id)"
+        [ngClass]="{'active': isActive(event._id)}"
+        pTooltip="{{ event.incidentType }}" tooltipPosition="top"
+      >
+        <span class="marker inner"></span>
+      </span>
     </ng-template>
     <ng-template pTemplate="content" let-event>
-      <div (click)="setActiveEvent(event.id)" [ngClass]="{'active': isActive(event.id)}" class="event-tab">
-        <small>{{ event.time }}</small>
-        <p>{{ event.description }}</p>
+      <div
+        (click)="setActiveEvent(event._id)"
+        [ngClass]="{'active': isActive(event._id)}"
+        class="event-tab"
+      >
       </div>
     </ng-template>
     <ng-template pTemplate="opposite" let-event>
-      <h3>{{ event.status }}</h3>
+      <small></small>
     </ng-template>
   </p-timeline>
-  <video [src]="videoUrl" controls></video>
-  
+
+  <!-- Pointer -->
+  <div class="pointer" [ngStyle]="{'left': pointerPosition + '%'}"></div>
+
   <!-- Display additional info for the active event -->
   <div *ngIf="activeEventId" class="event-info">
-    <div class="info">
-      <h2>Details for Event {{ activeEventId }}</h2>
-      <!-- <video src="https://www.youtube.com/watch?v=Dy5HpijNuj4"></video> -->
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste quae, eius delectus sint dolorem unde incidunt magnam ad, consectetur dignissimos officia et fuga iure sunt cumque atque blanditiis. In, expedita.</p>
-      <!-- <div class="video-placeholder"></div> -->
-    </div>
+    <mat-sidenav-container>
+      <mat-sidenav-content>
+        <div class="info">
+          <h2>Details for Event {{ activeEventId }}</h2>
+          <p><strong>Incident Type:</strong> {{ getActiveEvent()?.incidentType }}</p>
+          <p><strong>Description:</strong> {{ getActiveEvent()?.description }}</p>
+          <p><strong>Time:</strong> {{ getActiveEvent()?.time }}</p>
+          <p><strong>Status:</strong> {{ getActiveEvent()?.status }}</p>
+          <video [src]="videoUrl" controls></video>
+        </div>
+      </mat-sidenav-content>
+      <mat-sidenav position="end" opened mode="side">
+        <div class="feedback">
+          <h2>Feedback</h2>
+          <p></p>
+        </div>
+      </mat-sidenav>
+    </mat-sidenav-container>
   </div>
 </div>

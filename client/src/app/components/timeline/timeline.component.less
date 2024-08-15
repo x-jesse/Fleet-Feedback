@@ -1,15 +1,12 @@
-button:hover {
-  cursor: pointer;
-}
-
 .timeline-container {
-  padding: 1rem;
+  position: relative;
+  padding: 2rem;
 }
 
-.video-placeholder {
-  width: 200px;
-  height: 120px;
-  background-color: black;
+.event-info {
+  // width: 100%;
+  padding: 2rem;
+  border-radius: 10px;
 }
 
 .marker {
@@ -21,17 +18,31 @@ button:hover {
   border: 2px solid gray;
   border-radius: 50%;
   position: absolute;
-}
-
-// creates the inner circle
-.marker.inner { 
-  background-color: grey;
-  width: 12px;
-  height: 12px;
+  transition: all 0.2s;
+  background-color: var(--white-ice);
 }
 
 .marker:hover {
   cursor: pointer;
+}
+
+.marker.active, .marker:hover {
+  border-color: var(--shakespeare);
+  width: 30px;
+  height: 30px;
+}
+
+.marker.active > .inner, .marker:hover > .inner {
+  background-color: var(--shakespeare);
+  border-color: var(--shakespeare);
+  width: 18px;
+  height: 18px;
+}
+
+.marker.inner {
+  background-color: grey;
+  width: 12px;
+  height: 12px;
 }
 
 :host ::ng-deep {
@@ -39,5 +50,30 @@ button:hover {
     display: flex;
     flex-direction: column;
     flex: 1;
+  }
+
+  .p-timeline-horizontal {
+    background-color: var(--white-ice);
+    padding: 1rem;
+    padding-left: 4rem;
+    border-radius: 50px;
+  }
+
+  .p-timeline-event-connector {
+    background-color: grey;
+  }
+
+  .pointer {
+    position: absolute;
+    left: 0;
+    top: 19%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 70px solid transparent;
+    border-right: 70px solid transparent;
+    border-bottom: 30px solid white;
+    transition: left 0.3s ease; /* Smooth transition */
+    z-index: 10;
   }
 }

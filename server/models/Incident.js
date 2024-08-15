@@ -10,7 +10,7 @@ const IncidentSchema = new mongoose.Schema({
   longitude: Number,
   driverId: Number,
   videoId: {
-    type: mongoose.Schema.Types.ObjectId, // ObjectId reference to the video file in GridFS
+    type: mongoose.Schema.Types.ObjectId,
     required: false,
   },
 });

@@ -73,12 +73,12 @@ app.post("/api/trips/incidents/upload", upload.single("video"), (req, res) => {
 
 app.get("/api/trips/incidents/videos/:id", async (req, res) => {
     const fileId = req.params.id;
-    console.log("req received");
+    // console.log("req received");
     try {
         let files = await gfs.files.findOne({
             filename: fileId
         });
-        console.log('found')
+        // console.log('found')
         res.json({
             files
         });
